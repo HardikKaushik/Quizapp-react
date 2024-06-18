@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import AdminPanel from './components/AdminPanel';
+import QuizList from './components/QuizList';
+import Quiz from './components/Quiz';
+import Results from './components/Results';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="min-h-screen bg-gray-100">
+        <header className="bg-blue-600 p-4 text-white">
+          <nav className="container mx-auto flex justify-between">
+            <Link to="/" className="text-xl font-bold">Quiz Platform</Link>
+            <div>
+              <Link to="/admin" className="mr-4 font-semibold">Create Quiz</Link>
+              <Link to="/" className='font-semibold ' >Quizzes</Link>
+            </div>
+          </nav>
+        </header>
+        <main className="container mx-auto p-4">
+          <Routes>
+            <Route path="/admin" element={<AdminPanel />} />
+            <Route path="/quiz/:id" element={<Quiz />} />
+            <Route path="/results/:id" element={<Results />} />
+            <Route path="/" element={<QuizList />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
